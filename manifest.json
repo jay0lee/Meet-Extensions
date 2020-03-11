@@ -1,0 +1,13 @@
+{
+  "name": "MeetLockdown",
+  "version": "1.0",
+  "description": "Prevent users from muting and kicking other Meet participants",
+  "permissions": ["webRequest",
+                  "webRequestBlocking",
+                  "https://meet.google.com/*"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "manifest_version": 2
+}
