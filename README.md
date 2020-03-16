@@ -13,7 +13,7 @@ Chrome Extension to prevent users from kicking others out of the meeting, muting
 1. IMPORTANT: find the extension in the list and change it from "Allow install" to "Force install". Save changes.
 
 # How does the extension work?
-1. When a user tries to mute, kick or allow another user into an existing meeting, Chrome makes a call to a URL like: `https://meet.google.com/$rpc/google.rtc.meetings.v1.MeetingDeviceService/UpdateMeetingDevice`.
+1. When a user tries to mute, kick or allow another user into an existing meeting, Chrome makes a call to a URL like: `https://meet.google.com/$rpc/google.rtc.meetings.v1.MeetingDeviceService/UpdateMeetingDevice` and tells Google Meet to perform an action against the other user/device.
 1. Unfortunately we can't simply block this URL because it's also used to update the user themselves when the user joins the room or performs other actions. If we block this URL, the user won't be able to join meetings at all.
 1. Looking further, we can see Chrome is sending an HTTPS POST request to the UpdateMeetingDevice URL. The POST data includes an identifier telling us which device to update. It looks something like spaces/<space id>/devices/<device id>`. The space_id is a unique identifier for this meeting and device id is a unique identifier for the joined user/device.
 1. So our goal would be to allow HTTPS requests to `UpdateMeetingDevice` requests *if the user is updating their own device but block the requests if it's another user device. To do that we need to know which device id is this users.
