@@ -18,3 +18,9 @@ Chrome Extension to prevent users from kicking others out of the meeting, muting
 1. Looking further, we can see Chrome is sending an HTTPS POST request to the UpdateMeetingDevice URL. The POST data includes an identifier telling us which device to update. It looks something like spaces/<space id>/devices/<device id>`. The space_id is a unique identifier for this meeting and device id is a unique identifier for the joined user/device.
 1. So our goal would be to allow HTTPS requests to `UpdateMeetingDevice` requests *if the user is updating their own device but block the requests if it's another user device. To do that we need to know which device id is this users.
 1. Lucky for us as part of the process when the user joins a meeting, there's a request to `https://meet.google.com/$rpc/google.rtc.meetings.v1.MeetingDeviceService/CreateMeetingDevice`. We can observe this request and response and then whitelist the created device id for requests to `UpdateMeetingDevice`. In other words, users will be able to update device ids that they themselves created but not device ids for other users.
+1. As a G Suite administrator, you have the ability to force install this extension for your users (see above). Users can't remove or disable force installed extensions. When you force install MeetLockdown for students but not staff/teachers, teachers will still be able to perform actions like mute, kick and accept external for other users but students won't.
+  
+# Limitations
+1. The extension only works on Google Chrome. If user is using another browser, they won't have the extension and won't be locked down.
+1. The extension does not work for users running the Android or iOS apps. Those users won't be locked down.
+1. If the user is able to open developer tools, they'll be able to break the extension. You should ensure Chrome developer tools are disabled for all extensions or at least force installed extensions.
