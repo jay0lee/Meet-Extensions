@@ -1,7 +1,13 @@
-# Google Hangouts Meet Student Lockdown
+# Google Hangouts Meet student lockdown
 Chrome Extension to prevent users from kicking others out of the meeting, muting others and allowing users outside your G Suite domain into the meeting. The extension is in early testing and is not yet recommended for mass deployment to end users.
 
-# Force Installing the Extension
+# Testing on one device
+The extension is not published on the Chrome Web Store so it requires special steps to test:
+1. Download https://storage.googleapis.com/chrome-extensions-jay0lee/MeetLockdown/MeetLockdown.crx (note, Chrome may give you trouble downloading in some cases for security reasons, try using another browser if so)
+1. Go to `chrome://extensions` and enable developer mode at top right (note that this has nothing to do with Chrome OS developer mode).
+1. From a file app, drag the `MeetLockdown.crx` file into the `chrome://extension` window. This should install the extension for the user. Note that if the user is locked down with Chrome policy this may not be allowed, try testing with a less locked down user.
+
+# Force installing the extension
 1. Go to admin.google.com > 3 bar "hamburger" menu at top left.
 1. Devices > Chrome > Apps > Users & browsers
 1. Select the OrgUnit to the left you want to lockdown. This would generally be the Students OrgUnit. If you lockdown teachers they will be unable to manage students.
