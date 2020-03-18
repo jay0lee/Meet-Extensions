@@ -1,5 +1,5 @@
 var device_id_re = /@spaces\/.*\/devices\/([a-f,0-9,-]*)/;
-var space_id_re = /@spaces\/([a-z,A-Z,0-9]*)\/devices\//;
+var space_id_re = /@spaces\/([a-z,A-Z,0-9,-]*)\/devices\//;
 
 var space_id;
 var ignore_device_ids = [];
@@ -74,20 +74,20 @@ chrome.webRequest.onSendHeaders.addListener(
         chrome.tabs.sendMessage(tabs[0].id, {command: 'createDevice', url: info.url, reqbody: reqbody, headers: info.requestHeaders}, function(mresponse) {
           var create_device_response = mresponse.body;
           var create_decoded = atob(create_device_response);
+          console.log('decoded response: ' + create_decoded);
           var result = create_decoded.match(device_id_re);
-          if ( ! result ) {
-            console.log('no device id on CreatMeetingDevice, doing nothing');
-          } else {
+          if ( result ) {
             var device_id = result[1];
             ignore_device_ids.push(device_id);
             console.log('whitelisted created device_id: ' + device_id);
-            
+          } else {
+            console.log('no device id on CreatMeetingDevice, doing nothing');
           }
           var sresult = create_decoded.match(space_id_re);
-          if ( ! sresult ) {
-            console.log('no space id on CreatMeeting, uh oh');
-          } else{
+          if ( sresult ) {
             space_id = sresult[1];
+          } else {
+            console.log('no space id on CreateMeeting, uh oh');
           }
         });
       });
@@ -112,6 +112,9 @@ function send_mute_to_inject(command) {
       space_id: space_id
     };
     chrome.tabs.sendMessage(tabs[0].id, message, function(mresponse) {
+       if(chrome.runtime.lastError) {
+         console.log('no response from inject, let\'s just assume the best...');
+       }
        console.log(mresponse);
     });
   });
