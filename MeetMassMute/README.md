@@ -3,7 +3,7 @@ Chrome Extension to mute all meeting particpants other than self.
 
 # Testing on one device
 The extension is not published on the Chrome Web Store so it requires special steps to test:
-1. Download https://storage.googleapis.com/chrome-extensions-jay0lee/MeetMassMute/MeetMassMute.crx (note, Chrome may give you trouble downloading in some cases for security reasons, try using another browser if so)
+1. Download [https://storage.googleapis.com/chrome-extensions-jay0lee/MeetMassMute/MeetMassMute.crx](https://storage.googleapis.com/chrome-extensions-jay0lee/MeetMassMute/MeetMassMute.crx?) (note, Chrome may give you trouble downloading in some cases for security reasons, try using another browser if so)
 1. Go to `chrome://extensions` and enable developer mode at top right (note that this has nothing to do with Chrome OS developer mode).
 1. From a file app, drag the `MeetMassMute.crx` file into the `chrome://extension` window. This should install the extension for the user. Note that if the user is locked down with Chrome policy this may not be allowed, try testing with a less locked down user.
 1. Now assign a keyboard shortcut to mute everyone. Click the 3 bar "hamburger" menu at the top right in `chrome://extensions` and select Keyboard shortcuts. Set a shortcut for MeetMassMute "Mute all Google Meet participants" action. I recommend CTRL+ALT_M.
