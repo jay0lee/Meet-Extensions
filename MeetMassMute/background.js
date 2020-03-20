@@ -1,5 +1,5 @@
 var device_id_re = /@spaces\/.*\/devices\/([a-f,0-9,-]*)/;
-var space_id_re = /@spaces\/([a-z,A-Z,0-9,-,_]*)\/devices\//;
+var space_id_re = /@spaces\/(.*?)\/devices\//;
 
 var space_id;
 var ignore_device_ids = [];
@@ -16,12 +16,13 @@ function arrayBufferToBase64( buffer ) {
     return window.btoa( binary );
 }
 
-chrome.commands.onCommand.addListener(send_mute_to_inject);
+chrome.commands.onCommand.addListener(send_update_to_inject);
 
 chrome.runtime.onMessage.addListener(process_chrome_message);
 
 function process_chrome_message(request, sender, sendResponse) {
-    send_mute_to_inject('mute');
+    console.log('background got message with request: ' + request.command)
+    send_update_to_inject(request.command);
     sendResponse('done');
     return true;
 }
@@ -101,12 +102,13 @@ chrome.webRequest.onSendHeaders.addListener(
   },
   ["requestHeaders", "extraHeaders"]);
 
-function send_mute_to_inject(command) {
+function send_update_to_inject(command) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    console.log(command);
     console.log('ignore');
     console.log(ignore_device_ids);
     var message = {
-      command: 'muteAll',
+      command: command,
       ignore_device_ids: ignore_device_ids,
       send_headers: send_headers,
       space_id: space_id

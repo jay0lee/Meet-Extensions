@@ -45,7 +45,9 @@ function process_chrome_message(request, sender, sendResponse) {
     if ( request.command == 'createDevice' ) {
       create_device(request, sendResponse);
     } else if ( request.command == 'muteAll') {
-      mute_all(request, sendResponse);
+      update_all('mute', request, sendResponse);
+    } else if ( request.command == 'kickAll') {
+      update_all('kick', request, sendResponse);
     }
     return true;
 }
@@ -71,7 +73,7 @@ function create_device(request, sendResponse) {
       xrequest.send(request_body);
     }
     
-function mute_all(request, sendResponse) {
+function update_all(action, request, sendResponse) {
     var mrequest = new XMLHttpRequest();
     mrequest.withCredentials = true;
     mrequest.open("POST", 'https://meet.google.com/$rpc/google.rtc.meetings.v1.MeetingSpaceService/SyncMeetingSpaceCollections?', true); // append ? to avoid our webRequests
@@ -91,17 +93,18 @@ function mute_all(request, sendResponse) {
         console.log('all devices:');
         console.log(all_devices);
         console.log(request);
-        mute_devices = [];
+        update_devices = [];
         for (i = 0; i < all_devices.length; i++) {
           if ( ! request.ignore_device_ids.includes(all_devices[i]) ) {
-            mute_devices.push(all_devices[i]);
+            update_devices.push(all_devices[i]);
           }
         }
-        muter_id = request.ignore_device_ids[0];
-        console.log('muter_id: "' + muter_id + '"');
-        console.log('mute_devices');
-        console.log(mute_devices);
-        for (i =0; i < mute_devices.length; i++) {
+        updater_id = request.ignore_device_ids[0];
+        console.log('updater_id: "' + updater_id + '"');
+        console.log('update_devices');
+        console.log(update_devices);
+        console.log('update action: ' + action)
+        for (i =0; i < update_devices.length; i++) {
           var srequest = new XMLHttpRequest();
           srequest.withCredentials = true;
           srequest.open('POST', 'https://meet.google.com/$rpc/google.rtc.meetings.v1.MeetingDeviceService/UpdateMeetingDevice?', true);
@@ -110,7 +113,11 @@ function mute_all(request, sendResponse) {
               srequest.setRequestHeader(request.send_headers[n].name, request.send_headers[n].value);
             }
           }
-          var sbody = '\n\u0086\u0001\n@spaces/' + request.space_id + '/devices/' + mute_devices[i] + 'bB\n@spaces/' + request.space_id + '/devices/' + muter_id;
+          if (action === 'mute') {
+              var sbody = '\n\u0086\u0001\n@spaces/' + request.space_id + '/devices/' + update_devices[i] + 'bB\n@spaces/' + request.space_id + '/devices/' + updater_id;
+            } else if (action === 'kick') {
+              var sbody = '\nD\n@spaces/' + request.space_id + '/devices/' + update_devices[i] + ' \u0007'
+            }
           var body = strToArrayBuffer(sbody);
           srequest.send(body);
         }

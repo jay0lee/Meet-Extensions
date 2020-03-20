@@ -1,6 +1,6 @@
 {
   "name": "MeetMassMute",
-  "version": "1.04",
+  "version": "1.06",
   "description": "Mass Mute Everyone in Google Meet",
   "content_scripts": [
       {
@@ -21,12 +21,17 @@
     "default_title": "Meet Mass Mute"
     },
   "commands": {
-    "toggle-feature": {
+    "muteAll": {
       "suggested_key": {
-        "default": "Ctrl+Shift+M",
-        "mac": "MacCtrl+Shift+M"
+        "default": "Alt+Shift+M"
        },
       "description": "Mute all Google Meet participants"
+    },
+    "kickAll": {
+      "suggested_key": {
+        "default": "Alt+Shift+K"
+      },
+      "description": "Kick all Google Meet participants"
     }
   },
   "manifest_version": 2
