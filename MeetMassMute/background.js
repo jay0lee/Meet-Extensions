@@ -1,5 +1,5 @@
 var device_id_re = /@spaces\/.*\/devices\/([a-f,0-9,-]*)/;
-var space_id_re = /@spaces\/([a-z,A-Z,0-9,-]*)\/devices\//;
+var space_id_re = /@spaces\/([a-z,A-Z,0-9,-,_]*)\/devices\//;
 
 var space_id;
 var ignore_device_ids = [];
