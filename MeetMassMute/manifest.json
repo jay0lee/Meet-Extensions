@@ -1,6 +1,6 @@
 {
   "name": "MeetMassMute",
-  "version": "1.06",
+  "version": "1.07",
   "description": "Mass Mute Everyone in Google Meet",
   "content_scripts": [
       {
