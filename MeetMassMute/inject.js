@@ -1,4 +1,5 @@
 var device_id_re = RegExp('@spaces\/.*\/devices\/([a-f,0-9,-]*)', 'g');
+var updater_id_re = /@spaces\/.*\/devices\/([a-f,0-9,-]*).*\^https/g;
 var all_devices;
 
 function ab2str(buf) {
@@ -35,7 +36,7 @@ function arrayBufferToBase64( buffer ) {
 
 var skip_headers = ["Cookie", "User-Agent", "Origin", "Sec-Fetch-Site",
                     "Sec-Fetch-Mode", "Sec-Fetch-Dest", "Referer",
-                    "Accept-Encoding"];
+                    "Accept-Encoding", "sec-ch-ua", "sec-ch-ua-mobile"];
 
 chrome.runtime.onMessage.addListener(process_chrome_message);
 
@@ -99,7 +100,7 @@ function update_all(action, request, sendResponse) {
             update_devices.push(all_devices[i]);
           }
         }
-        updater_id = request.ignore_device_ids[0];
+        updater_id = [...all_devices_response.matchAll(updater_id_re)].pop()[1]
         console.log('updater_id: "' + updater_id + '"');
         console.log('update_devices');
         console.log(update_devices);
