@@ -105,7 +105,7 @@ chrome.webRequest.onSendHeaders.addListener(
 function send_update_to_inject(command) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     console.log(command);
-    console.log('ignore');
+    console.log('ignore devices:');
     console.log(ignore_device_ids);
     var message = {
       command: command,
