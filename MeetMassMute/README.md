@@ -1,5 +1,5 @@
 # Google Meet Mass Mute
-Chrome Extension to mute all meeting particpants other than self.
+Chrome Extension to mute or kick all particpants other than self.
 
 # Testing on one device
 The extension is not published on the Chrome Web Store so it requires special steps to test:
