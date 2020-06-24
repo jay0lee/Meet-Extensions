@@ -1,4 +1,4 @@
-# Google Hangouts Meet student lockdown
+# Google Meet student lockdown
 Chrome Extension to prevent users from kicking others out of the meeting, muting others and allowing users outside your G Suite domain into the meeting. The extension is in early testing and is not yet recommended for mass deployment to end users.
 
 # Testing on one device
