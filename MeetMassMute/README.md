@@ -21,4 +21,4 @@ The extension is not published on the Chrome Web Store so it requires special st
 1. IMPORTANT: find the extension in the list and change it from "Allow install" to "Force install". Save changes.
 
 # Limitations
-1. The extension only works on Google Chrome. If user is using another browser, they won't have the extension and won't be able to mute all other participants.
+1. The extension only works on Google Chrome. If the primary user is using another browser, they won't have the extension and won't be able to mute all other participants. The other participants can join using any browser or app and should still be muted or kicked as needed.
