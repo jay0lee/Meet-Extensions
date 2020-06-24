@@ -1,4 +1,4 @@
-# Google Hangouts Meet Mass Mute
+# Google Meet Mass Mute
 Chrome Extension to mute all meeting particpants other than self.
 
 # Testing on one device
